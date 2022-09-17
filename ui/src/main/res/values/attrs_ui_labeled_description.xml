@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UILabeledDescription">
+        <attr name="label" format="string" /> <!-- Just to show an usage of parameter name used in one component -->
+        <attr name="description" />
+    </declare-styleable>
+</resources>

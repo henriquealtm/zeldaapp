@@ -35,35 +35,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Progress Container - It could be a Compound View -->
-        <LinearLayout
+        <com.example.ui.UILoading
             isVisible="@{vm.resourceList.showLoader}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_huge"
-            android:gravity="center"
-            android:orientation="vertical"
+            app:description="@{@string/item_list_loading_message(vm.categoryName)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar"
-            tools:visibility="gone">
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:indeterminateTint="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:text="@{@string/item_list_loading_message(vm.categoryName)}"
-                tools:text="Loading category list items" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
         <!-- Error Container - It could be a Compound View -->
         <androidx.appcompat.widget.LinearLayoutCompat

@@ -10,6 +10,4 @@ class CategoryItemDetailsViewModel(
 
     val formattedCommonLocations: String = join(", ", categoryItem.commonLocations)
 
-    val showCommonLocationsSection = formattedCommonLocations.isNotEmpty()
-
 }
