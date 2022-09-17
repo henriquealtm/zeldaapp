@@ -1,5 +1,6 @@
 package com.example.zeldaapp.category.domain.usecase
 
+import androidx.annotation.VisibleForTesting
 import com.example.zeldaapp.category.data.repository.ICategoryRepository
 import com.example.zeldaapp.category.domain.mapper.toCategoryItemList
 
@@ -15,14 +16,17 @@ class CategoryItemListUseCase(
         getCategoryItemList(category.lowercase())
     }
 
-    private fun isCreatureCategory(category: String) = category.lowercase() == "creatures"
+    @VisibleForTesting
+    fun isCreatureCategory(category: String) = category.lowercase() == "creatures"
 
-    private suspend fun getCategoryItemList(category: String) = repository
+    @VisibleForTesting
+    suspend fun getCategoryItemList(category: String) = repository
         .getCategoryItemList(category)
         .toCategoryItemList()
         .sortedBy { it.name }
 
-    private suspend fun getCreaturesItemList() = repository
+    @VisibleForTesting
+    suspend fun getCreaturesItemList() = repository
         .getCreaturesItemList()
         .toCategoryItemList()
         .sortedBy { it.name }
