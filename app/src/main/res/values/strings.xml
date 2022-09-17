@@ -12,7 +12,6 @@
     <!-- Category Items List -->
     <string name="item_list_screen_title">%s list</string>
     <string name="item_list_search_hint">Search</string>
-    <string name="item_list_icon_description">Navigate to the next screen</string>
     <string name="item_list_loading_message">Loading %s\'s list…</string>
 
     <!-- Details -->
