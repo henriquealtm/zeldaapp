@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/categoryTypeListFragment">
+
+    <fragment
+        android:id="@+id/categoryTypeListFragment"
+        android:name="com.example.zeldaapp.category.presentation.type.CategoryTypeListFragment"
+        tools:layout="@layout/fragment_category_type_list">
+        <action
+            android:id="@+id/goToCategoryItems"
+            app:destination="@id/categoryItemsListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryItemsListFragment"
+        android:name="com.example.zeldaapp.category.presentation.item.list.CategoryItemListFragment"
+        tools:layout="@layout/fragment_category_item_list">
+        <action
+            android:id="@+id/goToCategoryItemDetails"
+            app:destination="@id/categoryItemDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryItemDetailsFragment"
+        android:name="com.example.zeldaapp.category.presentation.item.detail.CategoryItemDetailsFragment"
+        tools:layout="@layout/fragment_category_item_details" />
+
+</navigation>

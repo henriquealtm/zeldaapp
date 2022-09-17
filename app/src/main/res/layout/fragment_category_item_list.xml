@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.example.zeldaapp.category.presentation.item.list.CategoryItemListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_category_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/materialToolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigationIcon="?android:attr/homeAsUpIndicator"
+                app:navigationOnClickListener="@{() -> vm.navigateBackClick()}"
+                app:title="@{@string/item_list_screen_title(vm.categoryName)}"
+                tools:title="Category Item List" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Progress Container - It could be a Compound View -->
+        <LinearLayout
+            isVisible="@{vm.resourceList.showLoader}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_huge"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            tools:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:indeterminateTint="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@{@string/item_list_loading_message(vm.categoryName)}"
+                tools:text="Loading category list items" />
+
+        </LinearLayout>
+
+        <!-- Error Container - It could be a Compound View -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_error_container"
+            isVisible="@{vm.resourceList.showError}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            tools:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ops"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@{vm.resourceList.error.message}"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
+                tools:text="Error message from resource here..." />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:onClick="@{() -> vm.tryAgain()}"
+                android:text="@string/try_again" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- Success Container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_success_container"
+            isVisible="@{vm.resourceList.showData}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_normal"
+                android:hint="@string/item_list_search_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="@={vm.searchValue}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_clear"
+                style="@style/Widget.Material3.Button.TextButton"
+                iconDrawable="@{vm.searchIcon}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:onClick="@{() -> vm.onClearButtonClick()}"
+                app:iconPadding="0dp"
+                app:iconSize="@dimen/icon_small"
+                app:iconTint="?attr/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/til_search"
+                app:layout_constraintEnd_toEndOf="@+id/til_search"
+                app:layout_constraintTop_toTopOf="@+id/til_search" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category_item"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_search"
+                tools:itemCount="10"
+                tools:listitem="@layout/category_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

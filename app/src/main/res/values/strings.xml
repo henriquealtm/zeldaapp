@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">ZeldaApp</string>
+
+    <!-- Error Container -->
+    <string name="ops">Ops… :(</string>
+    <string name="try_again">Try Again</string>
+
+    <!-- Category Type List -->
+    <string name="type_list_screen_title">Category Type List</string>
+    <string name="type_list_icon_description">Navigate to the next screen</string>
+
+    <!-- Category Items List -->
+    <string name="item_list_screen_title">%s list</string>
+    <string name="item_list_search_hint">Search</string>
+    <string name="item_list_icon_description">Navigate to the next screen</string>
+    <string name="item_list_loading_message">Loading %s\'s list…</string>
+
+    <!-- Details -->
+    <string name="item_details_icon_description">Icon Details Description</string>
+    <string name="item_details_category_label">Category:</string>
+    <string name="item_details_common_places_label">Common Places:</string>
+
+</resources>
