@@ -16,3 +16,4 @@ rootProject.name = "ZeldaApp"
 include ':app'
 include ':commons'
 include ':network'
+include ':ui'

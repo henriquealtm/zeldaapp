@@ -64,56 +64,17 @@
             android:textSize="16sp"
             tools:text="These fearsome monsters have lived in Hyrule since ancient times. Their ability to breathe fire makes White-Maned Lynels among the toughest of the species; each one of their attacks is an invitation to the grave. There are so few eyewitness accounts of this breed because a White-Maned Lynel is not one to let even simple passersby escape with their lives." />
 
-        <LinearLayout
+        <com.example.ui.UILabeledDescription
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_huge"
-            android:layout_marginTop="@dimen/margin_huge"
-            android:orientation="horizontal">
+            app:description="@{vm.categoryItem.category}"
+            app:label="@string/item_details_category_label" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/item_details_category_label"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:text="@{vm.categoryItem.category}"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:text="Monster" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            isVisible="@{vm.showCommonLocationsSection}"
+        <com.example.ui.UILabeledDescription
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_huge"
-            android:layout_marginTop="@dimen/margin_huge"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/item_details_common_places_label"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:text="@{vm.formattedCommonLocations}"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:text="Hyrule Field, Hebra Mountains, Another place" />
-
-        </LinearLayout>
+            app:description="@{vm.formattedCommonLocations}"
+            app:label="@string/item_details_common_places_label" />
 
     </LinearLayout>
 
