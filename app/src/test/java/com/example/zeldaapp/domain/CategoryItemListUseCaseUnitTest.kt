@@ -5,6 +5,7 @@ import com.example.zeldaapp.category.domain.mapper.toCategoryItemList
 import com.example.zeldaapp.category.domain.model.CategoryItem
 import com.example.zeldaapp.category.domain.usecase.CategoryItemListUseCase
 import com.example.zeldaapp.domain.mock.CategoryItemDtoMock
+import com.example.zeldaapp.presentation.item.mock.CategoryItemMock
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -26,12 +27,12 @@ class CategoryItemListUseCaseUnitTest {
 
     // Is Creature Category - Section
     @Test
-    fun `GIVEN category equals to "creatures" WHEN calling isCreatureCategory() THEN returns true`() {
+    fun `WHEN calling isCreatureCategory() passing 'creatures' as parameter THEN returns true`() {
         assertTrue(categoryItemListUseCase.isCreatureCategory("creatures"))
     }
 
     @Test
-    fun `GIVEN category different from "creatures" WHEN calling isCreatureCategory() THEN returns false`() {
+    fun `WHEN calling isCreatureCategory() passing anything else than 'creatures' as parameter THEN returns false`() {
         assertFalse(categoryItemListUseCase.isCreatureCategory("monsters"))
     }
 
@@ -73,23 +74,28 @@ class CategoryItemListUseCaseUnitTest {
 
     // Invoke
     @Test
-    fun `WHEN calling the useCase and isCreatureCategory() returns true THEN getCreaturesItemList() must be called`() =
+    fun `WHEN calling the useCase and isCreatureCategory() returns true THEN useCase returns the value returned from getCreaturesItemList()`() =
         runBlocking {
             val mockedUseCase = spyk(categoryItemListUseCase)
-            coEvery { mockedUseCase.getCreaturesItemList() } returns emptyList()
+            coEvery { mockedUseCase.getCreaturesItemList() } returns CategoryItemMock.categoryList
             coEvery { mockedUseCase.isCreatureCategory(any()) } returns true
             mockedUseCase("")
-            coVerify { mockedUseCase.getCreaturesItemList() }
+            assertEquals(
+                CategoryItemMock.categoryList,
+                mockedUseCase("")
+            )
         }
 
     @Test
-    fun `WHEN calling the useCase and isCreatureCategory() returns false THEN getCreaturesItemList() must be called`() =
+    fun `WHEN calling the useCase and isCreatureCategory() returns false THEN useCase returns the value returned from getCategoryItemList()`() =
         runBlocking {
             val mockedUseCase = spyk(categoryItemListUseCase)
-            coEvery { mockedUseCase.getCreaturesItemList() } returns emptyList()
+            coEvery { mockedUseCase.getCategoryItemList(any()) } returns CategoryItemMock.categoryList
             coEvery { mockedUseCase.isCreatureCategory(any()) } returns false
-            mockedUseCase("")
-            coVerify { mockedUseCase.getCategoryItemList(any()) }
+            assertEquals(
+                CategoryItemMock.categoryList,
+                mockedUseCase("")
+            )
         }
 
 }
