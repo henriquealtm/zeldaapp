@@ -2,6 +2,11 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 
 object AppDependencies {
 
+    const val buildToolsClassPath = "com.android.tools.build:gradle:${Versions.gradle}"
+    const val gradlePluginClassPath = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+    const val navigationSageArgsClassPath =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
+
     // Std lib
     private const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
 

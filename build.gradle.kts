@@ -3,11 +3,11 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-    } // TODO Henrique - Can I remove this?
+    }
     dependencies {
-        classpath("com.android.tools.build:gradle:${Versions.gradle}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2")
+        classpath(AppDependencies.buildToolsClassPath)
+        classpath(AppDependencies.gradlePluginClassPath)
+        classpath(AppDependencies.navigationSageArgsClassPath)
     }
 }
 

@@ -10,71 +10,80 @@
             type="com.example.zeldaapp.category.presentation.item.detail.CategoryItemDetailsViewModel" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/cl_category_item_details"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
+        <LinearLayout
+            android:id="@+id/cl_category_item_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/materialToolbar"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:navigationIcon="?android:attr/homeAsUpIndicator"
-                app:navigationOnClickListener="@{() -> vm.navigateBackClick()}"
-                app:title="@{vm.categoryItem.name}"
-                tools:title="Category Item Details" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </com.google.android.material.appbar.AppBarLayout>
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/materialToolbar"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:navigationIcon="?android:attr/homeAsUpIndicator"
+                    app:navigationOnClickListener="@{() -> vm.navigateBackClick()}"
+                    app:title="@{vm.categoryItem.name}"
+                    tools:title="Category Item Details" />
 
-        <ImageView
-            loadUrlImage="@{vm.categoryItem.image}"
-            android:layout_width="@dimen/icon_huge"
-            android:layout_height="@dimen/icon_huge"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_huge"
-            android:contentDescription="@string/item_details_icon_description" />
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_huge"
-            android:text="@{vm.categoryItem.name}"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <ImageView
+                loadUrlImage="@{vm.categoryItem.image}"
+                android:layout_width="@dimen/icon_huge"
+                android:layout_height="@dimen/icon_huge"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_huge"
+                android:contentDescription="@string/item_details_icon_description"
+                tools:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_huge"
-            android:layout_marginTop="@dimen/margin_huge"
-            android:text="@{vm.categoryItem.description}"
-            android:textSize="16sp"
-            tools:text="These fearsome monsters have lived in Hyrule since ancient times. Their ability to breathe fire makes White-Maned Lynels among the toughest of the species; each one of their attacks is an invitation to the grave. There are so few eyewitness accounts of this breed because a White-Maned Lynel is not one to let even simple passersby escape with their lives." />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_huge"
+                android:text="@{vm.categoryItem.name}"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="Title" />
 
-        <com.example.ui.UILabeledDescription
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:description="@{vm.categoryItem.category}"
-            app:label="@string/item_details_category_label" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_huge"
+                android:layout_marginTop="@dimen/margin_huge"
+                android:text="@{vm.categoryItem.description}"
+                android:textSize="16sp"
+                tools:text="These fearsome monsters have lived in Hyrule since ancient times. Their ability to breathe fire makes White-Maned Lynels among the toughest of the species; each one of their attacks is an invitation to the grave. There are so few eyewitness accounts of this breed because a White-Maned Lynel is not one to let even simple passersby escape with their lives." />
 
-        <com.example.ui.UILabeledDescription
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:description="@{vm.formattedCommonLocations}"
-            app:label="@string/item_details_common_places_label" />
+            <com.example.ui.UILabeledDescription
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:description="@{vm.categoryItem.category}"
+                app:label="@string/item_details_category_label" />
 
-    </LinearLayout>
+            <com.example.ui.UILabeledDescription
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:description="@{vm.formattedCommonLocations}"
+                app:label="@string/item_details_common_places_label" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>
