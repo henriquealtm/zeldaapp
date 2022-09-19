@@ -1,5 +1,6 @@
 package com.example.zeldaapp.category.presentation.item.list
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
 import com.example.commons.base.BaseViewModel
 import com.example.commons.data.DataResource
@@ -33,6 +34,7 @@ class CategoryItemListViewModel(
         useCase(categoryName)
     }
 
+    @VisibleForTesting
     lateinit var completeList: List<CategoryItem>
 
     val list = MediatorLiveData<List<CategoryItem>>().apply {

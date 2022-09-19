@@ -1,31 +1,28 @@
 package com.example.zeldaapp.presentation.item.list
 
+import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import com.example.zeldaapp.CoroutinesMainTestRule
 import com.example.zeldaapp.category.domain.model.CategoryItem
 import com.example.zeldaapp.category.domain.usecase.CategoryItemListUseCase
 import com.example.zeldaapp.category.presentation.item.list.CategoryItemListViewModel
 import com.example.zeldaapp.drawables
 import com.example.zeldaapp.presentation.item.mock.CategoryItemMock.categoryList
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
+import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class CategoryItemListViewModelUnitTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @get:Rule
     val coroutineRule = CoroutinesMainTestRule()
 
@@ -76,6 +73,7 @@ class CategoryItemListViewModelUnitTest {
     @Test
     fun `GIVEN that searchValue_value is different from null WHEN onClearButtonClick() is called THEN searchValue_value receives an empty string`() {
         categoryItemListVm.run {
+            completeList = categoryList
             searchValue.value = "Armored"
             onClearButtonClick()
             assertEquals("", searchValue.value)
@@ -88,12 +86,11 @@ class CategoryItemListViewModelUnitTest {
     }
 
     @Test
-    fun `GIVEN that searchValue_value is null or empty THEN searchIcon_value is equal to ic_search`() {
+    fun `GIVEN that searchValue_value is empty THEN searchIcon_value is equal to ic_search`() {
         categoryItemListVm.run {
+            completeList = categoryList
             searchValue.value = "Armored"
             searchValue.value = ""
-            assertEquals(drawables.ic_search, searchIcon.value)
-            searchValue.value = null
             assertEquals(drawables.ic_search, searchIcon.value)
         }
     }
@@ -101,6 +98,7 @@ class CategoryItemListViewModelUnitTest {
     @Test
     fun `GIVEN that searchValue_value is different from null THEN searchIcon_value is equal to ic_close`() {
         categoryItemListVm.run {
+            completeList = categoryList
             searchValue.value = "Armored"
             assertEquals(drawables.ic_close, searchIcon.value)
         }
@@ -120,12 +118,9 @@ class CategoryItemListViewModelUnitTest {
     @Test
     fun `WHEN calling onCreate() THEN the CategoryItemListUseCase is called by the resourceList`() {
         categoryItemListVm.run {
-            coEvery { categoryItemListUseCase(any()) } returns categoryList
             val lifecycleOwner = mockk<LifecycleOwner>()
             onCreate(lifecycleOwner)
-            coVerify {
-                categoryItemListUseCase(any())
-            }
+            verify { resourceList.loadData() }
         }
     }
 
@@ -154,12 +149,25 @@ class CategoryItemListViewModelUnitTest {
     @Test
     fun `WHEN calling tryAgain() THEN the CategoryItemListUseCase is called by the resourceList`() {
         categoryItemListVm.run {
-            coEvery { categoryItemListUseCase(any()) } returns categoryList
             tryAgain()
-            coVerify {
-                categoryItemListUseCase(any())
-            }
+            verify { resourceList.loadData() }
         }
+    }
+
+    @Test
+    fun `Verify if CategoryItemListViewModel extends DefaultLifeCycleObserver`() {
+        val mockedVm = mockk<CategoryItemListViewModel>(relaxUnitFun = true)
+
+        val lifecycleOwner = mockk<LifecycleOwner>()
+        val lifecycle = LifecycleRegistry(mockk())
+        every { lifecycleOwner.lifecycle } returns lifecycle
+
+        lifecycle.addObserver(mockedVm)
+        lifecycle.markState(Lifecycle.State.INITIALIZED)
+        verify(exactly = 0) { mockedVm.onCreate(any()) }
+
+        lifecycle.currentState = Lifecycle.State.CREATED
+        verify { mockedVm.onCreate(any()) }
     }
 
 }
