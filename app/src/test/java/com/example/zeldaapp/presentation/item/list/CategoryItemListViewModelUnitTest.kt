@@ -8,6 +8,7 @@ import com.example.zeldaapp.category.domain.model.CategoryItem
 import com.example.zeldaapp.category.domain.usecase.CategoryItemListUseCase
 import com.example.zeldaapp.category.presentation.item.list.CategoryItemListViewModel
 import com.example.zeldaapp.drawables
+import com.example.zeldaapp.presentation.item.mock.CategoryItemMock
 import com.example.zeldaapp.presentation.item.mock.CategoryItemMock.categoryList
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -76,6 +77,7 @@ class CategoryItemListViewModelUnitTest {
     @Test
     fun `GIVEN that searchValue_value is different from null WHEN onClearButtonClick() is called THEN searchValue_value receives an empty string`() {
         categoryItemListVm.run {
+            completeList = categoryList
             searchValue.value = "Armored"
             onClearButtonClick()
             assertEquals("", searchValue.value)
@@ -88,12 +90,11 @@ class CategoryItemListViewModelUnitTest {
     }
 
     @Test
-    fun `GIVEN that searchValue_value is null or empty THEN searchIcon_value is equal to ic_search`() {
+    fun `GIVEN that searchValue_value is empty THEN searchIcon_value is equal to ic_search`() {
         categoryItemListVm.run {
+            completeList = categoryList
             searchValue.value = "Armored"
             searchValue.value = ""
-            assertEquals(drawables.ic_search, searchIcon.value)
-            searchValue.value = null
             assertEquals(drawables.ic_search, searchIcon.value)
         }
     }
@@ -101,6 +102,7 @@ class CategoryItemListViewModelUnitTest {
     @Test
     fun `GIVEN that searchValue_value is different from null THEN searchIcon_value is equal to ic_close`() {
         categoryItemListVm.run {
+            completeList = categoryList
             searchValue.value = "Armored"
             assertEquals(drawables.ic_close, searchIcon.value)
         }
