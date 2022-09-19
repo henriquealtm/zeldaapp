@@ -11,7 +11,7 @@ class CategoryTypeListViewModel : BaseViewModel() {
             "Monsters",
             "Materials",
             "Equipment",
-            "Treasure"
+            "Treasure",
         )
     )
 

@@ -2,17 +2,11 @@
 object Versions {
     // App level
     const val gradle = "7.2.1"
-    const val kotlin = "1.6.0"
-    const val googleServices = "4.3.10"
+    const val kotlin = "1.6.21"
 
     // Core
     const val coreKtx = "1.7.0"
     const val appcompat = "1.4.2"
-
-    // Firebase
-    const val firebasePlatform = "30.1.0"
-    const val firebaseAnalytics = "21.0.0"
-    const val firebaseCommon = "20.1.1"
 
     // Glide
     const val glide = "4.13.0"
@@ -24,7 +18,7 @@ object Versions {
     const val liveDataKtx = "2.4.1"
 
     // Navigation
-    const val navigation = "2.4.2"
+    const val navigation = "2.5.2"
 
     // UI
     const val constraintLayout = "2.1.4"

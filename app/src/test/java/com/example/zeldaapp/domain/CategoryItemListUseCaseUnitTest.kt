@@ -6,7 +6,9 @@ import com.example.zeldaapp.category.domain.model.CategoryItem
 import com.example.zeldaapp.category.domain.usecase.CategoryItemListUseCase
 import com.example.zeldaapp.domain.mock.CategoryItemDtoMock
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
+import io.mockk.spyk
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
@@ -51,7 +53,7 @@ class CategoryItemListUseCaseUnitTest {
             )
         }
 
-    // Get Item List - Section
+    // Get Creatures Item List - Section
     @Test
     fun `WHEN repository_getCreaturesItemList returns and empty list THEN getCategoryItemList() returns an empty list`() =
         runBlocking {
@@ -69,5 +71,25 @@ class CategoryItemListUseCaseUnitTest {
             )
         }
 
+    // Invoke
+    @Test
+    fun `WHEN calling the useCase and isCreatureCategory() returns true THEN getCreaturesItemList() must be called`() =
+        runBlocking {
+            val mockedUseCase = spyk(categoryItemListUseCase)
+            coEvery { mockedUseCase.getCreaturesItemList() } returns emptyList()
+            coEvery { mockedUseCase.isCreatureCategory(any()) } returns true
+            mockedUseCase("")
+            coVerify { mockedUseCase.getCreaturesItemList() }
+        }
+
+    @Test
+    fun `WHEN calling the useCase and isCreatureCategory() returns false THEN getCreaturesItemList() must be called`() =
+        runBlocking {
+            val mockedUseCase = spyk(categoryItemListUseCase)
+            coEvery { mockedUseCase.getCreaturesItemList() } returns emptyList()
+            coEvery { mockedUseCase.isCreatureCategory(any()) } returns false
+            mockedUseCase("")
+            coVerify { mockedUseCase.getCategoryItemList(any()) }
+        }
 
 }
