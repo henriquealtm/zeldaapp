@@ -15,5 +15,4 @@ interface CategoryService {
     @GET("category/creatures")
     suspend fun getCreaturesItemList(): CreaturesItemListResponse
 
-
 }
