@@ -1,4 +1,4 @@
-package com.example.zeldaapp.domain
+package com.example.zeldaapp.domain.usecase
 
 import com.example.zeldaapp.category.data.repository.ICategoryRepository
 import com.example.zeldaapp.category.domain.mapper.toCategoryItemList
@@ -7,7 +7,6 @@ import com.example.zeldaapp.category.domain.usecase.CategoryItemListUseCase
 import com.example.zeldaapp.domain.mock.CategoryItemDtoMock
 import com.example.zeldaapp.presentation.item.mock.CategoryItemMock
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.runBlocking
@@ -79,7 +78,6 @@ class CategoryItemListUseCaseUnitTest {
             val mockedUseCase = spyk(categoryItemListUseCase)
             coEvery { mockedUseCase.getCreaturesItemList() } returns CategoryItemMock.categoryList
             coEvery { mockedUseCase.isCreatureCategory(any()) } returns true
-            mockedUseCase("")
             assertEquals(
                 CategoryItemMock.categoryList,
                 mockedUseCase("")
