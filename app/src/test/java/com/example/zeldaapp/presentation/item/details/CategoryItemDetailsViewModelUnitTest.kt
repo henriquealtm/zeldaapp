@@ -37,7 +37,7 @@ class CategoryItemDetailsViewModelUnitTest {
     fun `WHEN formattedCommonLocations has one item THEN formattedCommonLocations has value without comma`() {
         val categoryItemsListVm = CategoryItemDetailsViewModel(categoryItemWithOneLocation)
         assertEquals(
-            "Hyrule Field",
+            "Lanayru Great Spring",
             categoryItemsListVm.formattedCommonLocations
         )
     }
