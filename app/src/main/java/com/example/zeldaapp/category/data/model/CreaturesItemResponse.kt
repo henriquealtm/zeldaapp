@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 typealias CreaturesItemListResponse = NetworkData<CreaturesItemListDto>
 
 data class CreaturesItemListDto(
-    val food: List<CategoryItemDto>,
+    val food: List<CategoryItemDto>?,
     @SerializedName("non_food")
-    val nonFood: List<CategoryItemDto>,
+    val nonFood: List<CategoryItemDto>?,
 )
