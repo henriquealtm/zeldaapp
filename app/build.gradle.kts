@@ -37,6 +37,9 @@ android {
         android.buildFeatures.viewBinding = true
         android.buildFeatures.dataBinding = true
     }
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {
@@ -53,6 +56,9 @@ dependencies {
     implementation(AppDependencies.retrofit)
     implementation(AppDependencies.gson)
     implementation(AppDependencies.cardView)
+
+
+    debugImplementation(AppDependencies.fragmentTesting)
 
     testImplementation(AppDependencies.unitTestLibraries)
 
