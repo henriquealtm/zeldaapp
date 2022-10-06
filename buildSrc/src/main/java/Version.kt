@@ -28,7 +28,7 @@ object Versions {
     // Unit test
     const val junit = "4.13.2"
     const val koinTest = "3.2.0"
-    const val mockk = "1.12.4"
+    const val mockk = "1.12.5"
     const val coreTesting = "2.1.0"
     const val coroutinesTesting = "1.6.2"
     const val mockitoVersion = "4.8.0"

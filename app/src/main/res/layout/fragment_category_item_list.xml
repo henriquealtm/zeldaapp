@@ -36,6 +36,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.example.ui.UILoading
+            android:id="@+id/uil_category_item"
             isVisible="@{vm.resourceList.showLoader}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -2,6 +2,7 @@ package com.example.zeldaapp.category.presentation.item.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.navigation.fragment.findNavController
 import com.example.commons.base.BaseFragment
 import com.example.commons.extension.observeAndNavigateBack
@@ -16,7 +17,8 @@ class CategoryItemListFragment : BaseFragment<FragmentCategoryItemListBinding>(
     R.layout.fragment_category_item_list
 ) {
 
-    private val categoryParamsVm: CategoryParamsViewModel by sharedViewModel()
+    @VisibleForTesting
+    val categoryParamsVm: CategoryParamsViewModel by sharedViewModel()
     private val categoryItemListVm: CategoryItemListViewModel by viewModel {
         parametersOf(categoryParamsVm.categoryName)
     }

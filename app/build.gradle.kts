@@ -14,7 +14,7 @@ android {
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
 
-        testInstrumentationRunner = AppConfig.androidTestInstrumentation
+        testInstrumentationRunner = AppConfig.customInstrumentedRunner
     }
 
     buildTypes {
@@ -37,6 +37,7 @@ android {
         android.buildFeatures.viewBinding = true
         android.buildFeatures.dataBinding = true
     }
+
 }
 
 dependencies {

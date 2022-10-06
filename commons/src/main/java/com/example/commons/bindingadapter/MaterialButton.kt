@@ -9,6 +9,7 @@ import com.google.android.material.button.MaterialButton
  * @param drawableId the drawable resource id
  */
 @BindingAdapter("iconDrawable")
-fun MaterialButton.setIconDrawable(drawableId: Int) {
+fun MaterialButton.setIconDrawable(drawableId: Int?) {
+    if (drawableId == null) return
     icon = ContextCompat.getDrawable(context, drawableId)
 }
