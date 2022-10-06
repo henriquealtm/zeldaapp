@@ -26,7 +26,7 @@ class CategoryItemListDtoToDomainUnitTest {
                 id = 0,
                 name = "",
                 category = "",
-                description = "123",
+                description = "",
                 image = "",
                 commonLocations = listOf(),
             )

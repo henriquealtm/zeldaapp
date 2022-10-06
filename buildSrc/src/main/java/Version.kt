@@ -1,4 +1,3 @@
-//version constants for the Kotlin DSL dependencies
 object Versions {
     // App level
     const val gradle = "7.2.1"
@@ -35,6 +34,8 @@ object Versions {
 
     // Instrumented test
     const val extJunit = "1.1.3"
-    const val espresso = "3.4.0"
+    const val espresso = "3.3.0"
     const val runner = "1.4.0"
+    const val navigationTesting = "2.5.2"
+    const val fragmentTesting = "1.5.3"
 }

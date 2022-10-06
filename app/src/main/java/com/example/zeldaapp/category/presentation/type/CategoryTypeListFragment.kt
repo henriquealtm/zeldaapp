@@ -1,5 +1,6 @@
 package com.example.zeldaapp.category.presentation.type
 
+import androidx.annotation.VisibleForTesting
 import androidx.navigation.fragment.findNavController
 import com.example.commons.base.BaseFragment
 import com.example.zeldaapp.R
@@ -13,8 +14,10 @@ class CategoryTypeListFragment : BaseFragment<FragmentCategoryTypeListBinding>(
     R.layout.fragment_category_type_list
 ) {
 
-    private val paramsVm: CategoryParamsViewModel by sharedViewModel()
-    private val categoryListVm: CategoryTypeListViewModel by viewModel()
+    @VisibleForTesting
+    val paramsVm: CategoryParamsViewModel by sharedViewModel()
+    @VisibleForTesting
+    val categoryListVm: CategoryTypeListViewModel by viewModel()
 
     override fun setupViewModel() {
         binding.vm = categoryListVm
@@ -27,7 +30,7 @@ class CategoryTypeListFragment : BaseFragment<FragmentCategoryTypeListBinding>(
     }
 
     private fun setupAdapter(list: List<String>) {
-        binding.rvCategory.adapter = CategoryTypeAdapter(list) { categoryType ->
+        binding.rvCategoryType.adapter = CategoryTypeAdapter(list) { categoryType ->
             onCategoryTypeOnClick(categoryType)
         }
     }

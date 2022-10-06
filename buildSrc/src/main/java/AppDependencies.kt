@@ -40,7 +40,7 @@ object AppDependencies {
     // UI
     private const val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    private const val material = "com.google.android.material:material:${Versions.material}"
+    const val material = "com.google.android.material:material:${Versions.material}"
     const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
 
     // Unit test
@@ -57,6 +57,11 @@ object AppDependencies {
     private const val espressoContrib =
         "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
     private const val runner = "androidx.test:runner:${Versions.runner}"
+    private const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
+    private const val navigationTesting = "androidx.navigation:navigation-testing:${Versions.navigationTesting}"
+
+    // Debug Implementation For Instrumented Test
+    const val fragmentTesting = "androidx.fragment:fragment-testing:${Versions.fragmentTesting}"
 
     val coreLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -90,15 +95,6 @@ object AppDependencies {
         add(material)
     }
 
-    val androidTestLibraries = arrayListOf<String>().apply {
-        add(instrumentedJUnit)
-        add(espressoCore)
-        add(espressoContrib)
-        add(runner)
-        add(koinTest)
-        add(coroutinesTesting)
-    }
-
     val unitTestLibraries = arrayListOf<String>().apply {
         add(junit)
         add(koinTest)
@@ -106,6 +102,18 @@ object AppDependencies {
         add(coreTesting)
         add(coroutinesTesting)
     }
+
+    val androidTestLibraries = arrayListOf<String>().apply {
+        add(instrumentedJUnit)
+        add(espressoCore)
+        add(espressoContrib)
+        add(runner)
+        add(koinTest)
+        add(coroutinesTesting)
+        add(mockkAndroid)
+        add(navigationTesting)
+    }
+
 }
 
 //util functions for adding the different type dependencies from build.gradle file
