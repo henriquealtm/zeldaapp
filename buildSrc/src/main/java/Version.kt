@@ -37,4 +37,6 @@ object Versions {
     const val extJunit = "1.1.3"
     const val espresso = "3.4.0"
     const val runner = "1.4.0"
+    const val navigationTesting = "2.5.2"
+    const val fragmentTesting = "1.5.3"
 }
