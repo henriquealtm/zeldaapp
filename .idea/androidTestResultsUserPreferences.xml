@@ -21,6 +21,7 @@
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
+                  <entry key="3.2_QVGA_ADP2_API_23" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_3a_-_Google_Play" value="120" />
                   <entry key="Tests" value="360" />

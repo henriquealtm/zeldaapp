@@ -14,7 +14,7 @@ android {
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
 
-        testInstrumentationRunner = AppConfig.androidTestInstrumentation
+        testInstrumentationRunner = AppConfig.customInstrumentedRunner
     }
 
     buildTypes {
