@@ -57,6 +57,11 @@ object AppDependencies {
     private const val espressoContrib =
         "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
     private const val runner = "androidx.test:runner:${Versions.runner}"
+    private const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
+    private const val navigationTesting = "androidx.navigation:navigation-testing:${Versions.navigationTesting}"
+
+    // Debug Implementation For Instrumented Test
+    const val fragmentTesting = "androidx.fragment:fragment-testing:${Versions.fragmentTesting}"
 
     val coreLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -90,6 +95,14 @@ object AppDependencies {
         add(material)
     }
 
+    val unitTestLibraries = arrayListOf<String>().apply {
+        add(junit)
+        add(koinTest)
+        add(mockk)
+        add(coreTesting)
+        add(coroutinesTesting)
+    }
+
     val androidTestLibraries = arrayListOf<String>().apply {
         add(instrumentedJUnit)
         add(espressoCore)
@@ -97,14 +110,8 @@ object AppDependencies {
         add(runner)
         add(koinTest)
         add(coroutinesTesting)
-    }
-
-    val unitTestLibraries = arrayListOf<String>().apply {
-        add(junit)
-        add(koinTest)
-        add(mockk)
-        add(coreTesting)
-        add(coroutinesTesting)
+        add(mockkAndroid)
+        add(navigationTesting)
     }
 }
 

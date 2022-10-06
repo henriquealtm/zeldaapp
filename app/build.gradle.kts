@@ -54,6 +54,8 @@ dependencies {
     implementation(AppDependencies.gson)
     implementation(AppDependencies.cardView)
 
+    debugImplementation(AppDependencies.fragmentTesting)
+
     testImplementation(AppDependencies.unitTestLibraries)
 
     androidTestImplementation(AppDependencies.androidTestLibraries)
