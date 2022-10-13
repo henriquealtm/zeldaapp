@@ -15,21 +15,14 @@ import org.koin.dsl.module
 object InstrumentedCategoryDi {
 
     fun module(
-        paramVm: CategoryParamsViewModel
+        paramVm: CategoryParamsViewModel,
+        itemListVm: CategoryItemListViewModel,
+        itemDetailsVm: CategoryItemDetailsViewModel,
     ) = module {
         viewModel { paramVm }
         viewModel { CategoryTypeListViewModel() }
-        viewModel { params ->
-            CategoryItemListViewModel(
-                categoryName = params.get(),
-                useCase = get()
-            )
-        }
-        viewModel { params ->
-            CategoryItemDetailsViewModel(
-                categoryItem = params.get(),
-            )
-        }
+        viewModel { itemListVm }
+        viewModel { itemDetailsVm }
 
         factory { CategoryItemListUseCase(repository = get()) }
 

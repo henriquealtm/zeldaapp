@@ -15,15 +15,16 @@ class CategoryItemListViewModel(
 ) : BaseViewModel(), DefaultLifecycleObserver {
 
     // Search - Section
-    val searchValue = MutableLiveData<String>()
+    val searchValue = MutableLiveData("")
 
-    val searchIcon = MediatorLiveData<Int>().apply {
-        addSource(searchValue) {
-            value = if (it.isNullOrEmpty()) R.drawable.ic_search else R.drawable.ic_close
-        }
+    // These two states could be changed to just the Image Button Icon state, changing the icon
+    // according to the searchValue values.
+    // But there is no way to instrument test this icon change. So in order to instrument test it,
+    // it was created this two states, because it's easy to instrument test the material button with
+    // the isDisplayed() match.
+    val isSearchIconVisible = searchValue.map { it.isNullOrEmpty() }
 
-        value = R.drawable.ic_search
-    }
+    val isClearIconVisible = searchValue.map { it.isNotEmpty() }
 
     fun onClearButtonClick() {
         searchValue.value = ""
@@ -35,11 +36,11 @@ class CategoryItemListViewModel(
     }
 
     @VisibleForTesting
-    lateinit var completeList: List<CategoryItem>
+    var completeList: List<CategoryItem>? = null
 
     val list = MediatorLiveData<List<CategoryItem>>().apply {
         addSource(searchValue) { searchValue ->
-            value = completeList.filter {
+            value = completeList?.filter {
                 it.name.lowercase().contains(searchValue.lowercase())
             }
         }

@@ -1,15 +1,20 @@
 package com.example.zeldaapp.presentation.item.list
 
-import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.Observer
+import com.example.commons.extension.handleOpt
 import com.example.zeldaapp.CoroutinesMainTestRule
 import com.example.zeldaapp.category.domain.model.CategoryItem
 import com.example.zeldaapp.category.domain.usecase.CategoryItemListUseCase
 import com.example.zeldaapp.category.presentation.item.list.CategoryItemListViewModel
-import com.example.zeldaapp.drawables
 import com.example.zeldaapp.presentation.item.mock.CategoryItemMock.categoryList
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Assert.*
@@ -31,8 +36,9 @@ class CategoryItemListViewModelUnitTest {
     private lateinit var categoryItemListVm: CategoryItemListViewModel
 
     private val searchValueObserver = Observer<String> {}
-    private val searchIconObserver = Observer<Int> {}
-    private val resourceList = Observer<List<CategoryItem>?> {}
+    private val isSearchIconVisibleObserver = Observer<Boolean> {}
+    private val isClearIconVisibleObserver = Observer<Boolean> {}
+    private val resourceListObserver = Observer<List<CategoryItem>?> {}
     private val listObserver = Observer<List<CategoryItem>> {}
 
     @Before
@@ -45,11 +51,13 @@ class CategoryItemListViewModelUnitTest {
     }
 
     private fun prepareObservers() {
-        categoryItemListVm.searchValue.observeForever(searchValueObserver)
-        categoryItemListVm.searchIcon.observeForever(searchIconObserver)
-        categoryItemListVm.resourceList.data.observeForever(resourceList)
-        categoryItemListVm.list.observeForever(listObserver)
-
+        categoryItemListVm.run {
+            searchValue.observeForever(searchValueObserver)
+            isSearchIconVisible.observeForever(isSearchIconVisibleObserver)
+            isClearIconVisible.observeForever(isClearIconVisibleObserver)
+            resourceList.data.observeForever(resourceListObserver)
+            list.observeForever(listObserver)
+        }
     }
 
     @After
@@ -58,20 +66,23 @@ class CategoryItemListViewModelUnitTest {
     }
 
     private fun cleanUpObservers() {
-        categoryItemListVm.searchValue.removeObserver(searchValueObserver)
-        categoryItemListVm.searchIcon.removeObserver(searchIconObserver)
-        categoryItemListVm.resourceList.data.removeObserver(resourceList)
-        categoryItemListVm.list.removeObserver(listObserver)
+        categoryItemListVm.run {
+            searchValue.removeObserver(searchValueObserver)
+            isSearchIconVisible.removeObserver(isSearchIconVisibleObserver)
+            isClearIconVisible.removeObserver(isClearIconVisibleObserver)
+            resourceList.data.removeObserver(resourceListObserver)
+            list.removeObserver(listObserver)
+        }
     }
 
     // Search - Section
     @Test
-    fun `GIVEN the initial state of CategoryItemListViewModel THEN searchValue_value is null`() {
-        assertNull(categoryItemListVm.searchValue.value)
+    fun `GIVEN the initial state of CategoryItemListViewModel THEN searchValue_value is empty`() {
+        assertEquals("", categoryItemListVm.searchValue.value)
     }
 
     @Test
-    fun `GIVEN that searchValue_value is different from null WHEN onClearButtonClick() is called THEN searchValue_value receives an empty string`() {
+    fun `GIVEN that searchValue_value is different from empty WHEN onClearButtonClick() is called THEN searchValue_value receives an empty string`() {
         categoryItemListVm.run {
             completeList = categoryList
             searchValue.value = "Armored"
@@ -81,27 +92,25 @@ class CategoryItemListViewModelUnitTest {
     }
 
     @Test
-    fun `GIVEN the initial state of CategoryItemListViewModel THEN searchIcon_value is equal to ic_search`() {
-        assertEquals(drawables.ic_search, categoryItemListVm.searchIcon.value)
+    fun `GIVEN the initial state of CategoryItemListViewModel THEN isSearchIconVisible is true`() {
+        assertTrue(categoryItemListVm.isSearchIconVisible.value.handleOpt())
     }
 
     @Test
-    fun `GIVEN that searchValue_value is empty THEN searchIcon_value is equal to ic_search`() {
-        categoryItemListVm.run {
-            completeList = categoryList
-            searchValue.value = "Armored"
-            searchValue.value = ""
-            assertEquals(drawables.ic_search, searchIcon.value)
-        }
+    fun `GIVEN the searchValue_value is different from empty THEN isSearchIconVisible is false`() {
+        categoryItemListVm.searchValue.value = "test"
+        assertFalse(categoryItemListVm.isSearchIconVisible.value.handleOpt())
     }
 
     @Test
-    fun `GIVEN that searchValue_value is different from null THEN searchIcon_value is equal to ic_close`() {
-        categoryItemListVm.run {
-            completeList = categoryList
-            searchValue.value = "Armored"
-            assertEquals(drawables.ic_close, searchIcon.value)
-        }
+    fun `GIVEN the initial state of CategoryItemListViewModel THEN isClearIconVisible is false`() {
+        assertFalse(categoryItemListVm.isClearIconVisible.value.handleOpt())
+    }
+
+    @Test
+    fun `GIVEN the searchValue_value is different from empty THEN isClearIconVisible is true`() {
+        categoryItemListVm.searchValue.value = "test"
+        assertTrue(categoryItemListVm.isClearIconVisible.value.handleOpt())
     }
 
     // Resource - Section

@@ -30,7 +30,7 @@ class CategoryTypeListFragmentTest {
     }
 
     @Test
-    fun verifyShownList() {
+    fun verifyDisplayedList() {
         Thread.sleep(1_000)
 
         launchFragmentInContainer<CategoryTypeListFragment>(
@@ -51,7 +51,7 @@ class CategoryTypeListFragmentTest {
     }
 
     @Test
-    fun verifyClickInItem() {
+    fun verifyClickInCategoryTypeAndUpdateParamsVm() {
         Thread.sleep(1_000)
 
         val typeScenario = launchFragmentInContainer<CategoryTypeListFragment>(

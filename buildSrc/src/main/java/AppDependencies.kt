@@ -113,6 +113,7 @@ object AppDependencies {
         add(mockkAndroid)
         add(navigationTesting)
         add(koin)
+        add(coreTesting)
     }
 }
 
